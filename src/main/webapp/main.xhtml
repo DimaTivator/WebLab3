@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      <!-- xmlns:ice="http://www.icefaces.org/icefaces/components"> -->
+<ui:composition template="/WEB-INF/templates/master.xhtml">
+    <ui:define name="head">
+        <h:outputStylesheet library="css" name="main.css"/>
+        <title>Lab 3 - Main Page</title>
+    </ui:define>
+    <ui:define name="main">
+        <main class="main-container">
+            <div class="bg">
+                <div id="alertContainer">
+                    <div id="alert">
+                     <span id="alertText">
+                        <!-- <h:graphicImage id="icond" name="content/error.png" alt="area"/>You have entered incorrect values. -->
+                     </span>
+                    </div>
+                </div>
+                <table id="outer">
+                    <tbody>
+                    <tr id="firstRow">
+                        <td>
+                            <table id="materials">
+                                <tr>
+                                    <td>
+                                        <div id="graph">
+                                            <!--       ui repeat for each Entry, draw Point       -->
+                                            <ui:repeat value="#{entriesBean.entries}" var="entry">
+                                                <h:graphicImage styleClass="point #{entry.hitResult == 'Попадание' ? 'point__true' : ''}" alt="point"
+                                                                style="
+                                                            margin-left: #{295 + entry.xValue * 50}px;
+                                                            margin-top: #{260 - entry.yValue * 50}px;"
+                                                />
+                                            </ui:repeat>
+
+                                        </div>
+                                        <canvas id="graphImage" />
+
+                                        <h:inputHidden id="hiddenX" value="#{entriesBean.entry.xValue}" />
+                                        <h:inputHidden id="hiddenY" value="#{entriesBean.entry.yValue}" />
+                                        <h:commandButton id="submit_canvas_button" styleClass="form__button shoot" value="Submit" action="#{entriesBean.addEntry}" style="display: none;" />
+
+
+                                        <!-- <h:graphicImage name="img/areas.png" alt="area"/> -->
+                                    </td>
+                                </tr>
+                                <tr id="formContainer">
+                                    <td>
+                                        <h:form method="get" id="form"
+                                                target="votar">
+                                            <div class="form__row">
+                                                <h:outputLabel for="X_input_select">
+                                                    <h:outputText value="Choose X"/>
+                                                </h:outputLabel><br/>
+                                                <h:selectOneMenu id="X_input_select" value="#{entriesBean.entry.xValue}">
+                                                    <f:selectItem itemLabel="-5" itemValue="-5" />
+                                                    <f:selectItem itemLabel="-4" itemValue="-4" />
+                                                    <f:selectItem itemLabel="-3" itemValue="-3" />
+                                                    <f:selectItem itemLabel="-2" itemValue="-2" />
+                                                    <f:selectItem itemLabel="-1" itemValue="-1" />
+                                                    <f:selectItem itemLabel="0" itemValue="0" />
+                                                    <f:selectItem itemLabel="1" itemValue="1" />
+                                                    <f:selectItem itemLabel="2" itemValue="2" />
+                                                    <f:selectItem itemLabel="3" itemValue="3" />
+                                                </h:selectOneMenu>
+                                            </div>
+                                            <div class="form__row">
+                                                <!--                                                <h:outputLabel styleClass="input-form__label input-form__label_y" for="y-text" value="Y"/>-->
+                                                <h:outputLabel for="y-text">
+                                                    <h:outputText value="Enter Y"/>
+                                                </h:outputLabel>
+                                                <h:inputText styleClass="form__input" id="y-text"
+                                                             maxlength="5" autocomplete="off" a:placeholder="Number from -5 to 3..."
+                                                             value="#{entriesBean.entry.yValue}">
+                                                    <f:validateRequired/>
+                                                    <f:validateDoubleRange minimum="-5" maximum="3"/>
+                                                </h:inputText>
+                                            </div>
+                                            <div class="form__row">
+                                                <h:outputLabel for="r-text">
+                                                    <h:outputText value="Enter R"/>
+                                                </h:outputLabel>
+                                                <h:inputText styleClass="form__input" id="r-text"
+                                                             maxlength="5" autocomplete="off" a:placeholder="Number from 2 to 5..."
+                                                             value="#{entriesBean.entry.rValue}">
+                                                    <f:validateRequired/>
+                                                    <f:validateDoubleRange minimum="2" maximum="5"/>
+                                                </h:inputText>
+                                            </div>
+                                            <h:commandButton id="submit_button" styleClass="form__button shoot" value="Submit" action="#{entriesBean.addEntry}" />
+                                            <h:commandButton id="clear_button" action="#{entriesBean.clearEntries}" styleClass="form__button clear" value="Clear" />
+                                        </h:form>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            <table id="result">
+                                <thead>
+                                <tr>
+                                    <th>X</th>
+                                    <th>Y</th>
+                                    <th>R</th>
+                                    <th>Result</th>
+                                    <th>Response time</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <ui:repeat value="#{entriesBean.getEntries()}" var="item">
+                                    <tr>
+                                        <td>#{item.xValue}</td>
+                                        <td>#{item.yValue}</td>
+                                        <td>#{item.rValue}</td>
+                                        <td style="color: #{item.hitResult == 'Промах' ? 'red' : 'green'}">#{item.hitResult}</td>
+                                        <td>#{item.responseTime}</td>
+                                    </tr>
+                                </ui:repeat>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+        <h:outputScript library="js" name="main.js"/>
+        <h:outputScript library="js" name="graph.js"/>
+    </ui:define>
+</ui:composition>
+</html>

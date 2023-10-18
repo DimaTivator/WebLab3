@@ -1,0 +1,68 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.main-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.point {
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.point__true {
+    background-color: lawngreen;
+}
+
+.form__row {
+    margin-bottom: 15px;
+}
+
+.form__input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.form__button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.shoot {
+    margin-right: 10px;
+}
+
+.clear {
+    background-color: #ff5555; /* Red color */
+}
+
+/* Styles for the result table */
+#result {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#result th, #result td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}

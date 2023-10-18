@@ -1,0 +1,49 @@
+body {
+    margin: 0;
+    font-size: 16px;
+    font-family: "Open Sans", "Arial", sans-serif;
+    background-color: #e9e6ee;
+}
+
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.topper {
+    font-size: 18px;
+    color: white;
+    background-color: #4953c2;
+}
+
+.main-header {
+    padding: 1em;
+    font-size: 15px;
+    text-align: center;
+}
+
+.main-header__back-link {
+    float: left;
+    margin-right: 20px;
+}
+
+.main-header__authors {
+    float: right;
+    text-align: right;
+}
+
+.main-header__info {
+    float: left;
+    text-align: left;
+}
+
+#outer {
+    position: relative;
+}
+
+#result {
+    position: absolute;
+    top: 0;
+    right: -650px;
+}
