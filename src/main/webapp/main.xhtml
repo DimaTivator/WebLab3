@@ -14,12 +14,8 @@
     <ui:define name="main">
         <main class="main-container">
             <div class="bg">
-                <div id="alertContainer">
-                    <div id="alert">
-                     <span id="alertText">
-                        <!-- <h:graphicImage id="icond" name="content/error.png" alt="area"/>You have entered incorrect values. -->
-                     </span>
-                    </div>
+                <div id="customMessage" class="custom-message">
+                    <h:messages globalOnly="true" layout="table" styleClass="custom-message-text" />
                 </div>
                 <table id="outer">
                     <tbody>
@@ -43,7 +39,7 @@
 
                                         <h:inputHidden id="hiddenX" value="#{entriesBean.entry.xValue}" />
                                         <h:inputHidden id="hiddenY" value="#{entriesBean.entry.yValue}" />
-                                        <h:commandButton id="submit_canvas_button" styleClass="form__button shoot" value="Submit" action="#{entriesBean.addEntry}" style="display: none;" />
+                                        <h:commandButton id="submit_canvas_button" styleClass="form__button shoot" value="Submit" action="#{entriesBean.addEntry}" style="display: none;" onclick="checkValidationAndSubmit()"/>
 
 
                                         <!-- <h:graphicImage name="img/areas.png" alt="area"/> -->
@@ -77,8 +73,8 @@
                                                 <h:inputText styleClass="form__input" id="y-text"
                                                              maxlength="5" autocomplete="off" a:placeholder="Number from -5 to 3..."
                                                              value="#{entriesBean.entry.yValue}">
-                                                    <f:validateRequired/>
-                                                    <f:validateDoubleRange minimum="-5" maximum="3"/>
+<!--                                                    <f:validateRequired/>-->
+<!--                                                    <f:validateDoubleRange minimum="-5" maximum="3"/>-->
                                                 </h:inputText>
                                             </div>
                                             <div class="form__row">
@@ -88,11 +84,11 @@
                                                 <h:inputText styleClass="form__input" id="r-text"
                                                              maxlength="5" autocomplete="off" a:placeholder="Number from 2 to 5..."
                                                              value="#{entriesBean.entry.rValue}">
-                                                    <f:validateRequired/>
-                                                    <f:validateDoubleRange minimum="2" maximum="5"/>
+<!--                                                    <f:validateRequired/>-->
+<!--                                                    <f:validateDoubleRange minimum="2" maximum="5"/>-->
                                                 </h:inputText>
                                             </div>
-                                            <h:commandButton id="submit_button" styleClass="form__button shoot" value="Submit" action="#{entriesBean.addEntry}" />
+                                            <h:commandButton id="submit_button" styleClass="form__button shoot" value="Submit" action="#{entriesBean.addEntry}"/>
                                             <h:commandButton id="clear_button" action="#{entriesBean.clearEntries}" styleClass="form__button clear" value="Clear" />
                                         </h:form>
                                     </td>

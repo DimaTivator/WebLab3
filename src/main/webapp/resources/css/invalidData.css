@@ -1,0 +1,12 @@
+/* Apply maximum size to the image */
+.image-container {
+    display: block;
+    text-align: center;
+}
+
+/* Center the link */
+.index-menu__link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+}

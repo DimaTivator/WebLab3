@@ -25,5 +25,19 @@
             <to-view-id>/main.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>goToInvalidData</from-outcome>
+            <to-view-id>/invalidData.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/invalidData.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>goToMain</from-outcome>
+            <to-view-id>/main.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
     </navigation-rule>
 </faces-config>
