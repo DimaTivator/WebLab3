@@ -1,7 +1,9 @@
 package com.example.weblab33;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.enterprise.inject.Model;
+import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 
 import java.io.Serializable;
@@ -14,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Model
-@ApplicationScoped
+@SessionScoped
 public class EntriesBean implements Serializable {
     private Entry entry;
     private List<Entry> entries;
@@ -67,29 +69,35 @@ public class EntriesBean implements Serializable {
 
     public String addEntry() {
         System.out.println("-------Adding Entry--------");
-        try {
-            PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO Entry(xValue, yValue, rValue, hitresult, responsetime) VALUES (?, ?, ?, ?, ?)");
+        if (entry.IsValid()) {
+            System.out.println("------Valid Entry--------");
+            try {
+                PreparedStatement statement = connection.prepareStatement(
+                        "INSERT INTO Entry(xValue, yValue, rValue, hitresult, responsetime) VALUES (?, ?, ?, ?, ?)");
 
-            double cur = (double) System.nanoTime() / 1000000;
-            entry.checkHit();
+                double cur = (double) System.nanoTime() / 1000000;
+                entry.checkHit();
 
-            statement.setDouble(1, entry.getxValue());
-            statement.setDouble(2, entry.getyValue());
-            statement.setDouble(3, entry.getrValue());
-            statement.setString(4, entry.getHitResult());
+                statement.setDouble(1, entry.getxValue());
+                statement.setDouble(2, entry.getyValue());
+                statement.setDouble(3, entry.getrValue());
+                statement.setString(4, entry.getHitResult());
 
-            double responseTime = (double)System.nanoTime() / 1000000 - cur;
-            statement.setDouble(5, responseTime);
+                double responseTime = (double) System.nanoTime() / 1000000 - cur;
+                statement.setDouble(5, responseTime);
 
-            entry.setResponseTime(responseTime);
+                entry.setResponseTime(responseTime);
 
-            statement.executeUpdate();
-            statement.close();
-            entries.add(entry);
-            entry = new Entry();
-        } catch (SQLException e) {
-            e.printStackTrace();
+                statement.executeUpdate();
+                statement.close();
+                entries.add(entry);
+                entry = new Entry();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            return "goToInvalidData";
         }
         return "redirect";
     }

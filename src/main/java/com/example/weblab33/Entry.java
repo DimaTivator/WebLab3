@@ -83,6 +83,12 @@ public class Entry implements Serializable {
         this.responseTime = responseTime;
     }
 
+
+    public boolean IsValid() {
+        return rValue != null && yValue != null && rValue >= 2 && rValue <= 5 && yValue >= -5 && yValue <= 3;
+    }
+
+
     @Override
     public String toString() {
         return "Entry{" +
